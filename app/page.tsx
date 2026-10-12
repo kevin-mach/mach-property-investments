@@ -2,14 +2,38 @@ import Link from "next/link";
 import HeroCarousel from "@/components/HeroCarousel";
 import PropertyCard from "@/components/PropertyCard";
 import { CtaBand } from "@/components/Footer";
-import { portfolio } from "@/data/portfolio";
+import LocationMap, { type MapView } from "@/components/LocationMap";
+import Photo from "@/components/Photo";
+import { slides } from "@/data/content";
+import { pinOf, portfolio } from "@/data/portfolio";
 import { figures } from "@/data/site";
 
 export default function Home() {
   return (
     <>
       <section className="hero">
-        <HeroCarousel />
+        <HeroCarousel
+          media={slides.map((s) => (
+            <Photo
+              key={s.title}
+              src={s.image}
+              alt={s.title}
+              placeholder={s.placeholder}
+              sizes="(max-width: 700px) 100vw, 640px"
+              fallback={
+                s.location ? (
+                  <LocationMap
+                    view={s.location.toLowerCase() as MapView}
+                    pins={portfolio.filter((p) => p.city === s.location).map(pinOf)}
+                    title={`Map of ${s.location} showing our properties`}
+                  />
+                ) : (
+                  <LocationMap view="uk" title="Map of the UK highlighting London, Essex and Manchester" />
+                )
+              }
+            />
+          ))}
+        />
         <div className="figures-strip">
           <div className="figures-grid">
             {figures.map((f) => (

@@ -1,4 +1,5 @@
-import { formatGBP, type Property } from "@/data/portfolio";
+import { formatGBP, pinOf, type Property } from "@/data/portfolio";
+import LocationMap, { type MapView } from "./LocationMap";
 import Photo, { Corners } from "./Photo";
 
 export default function PropertyCard({ property: p, showDesc = true }: { property: Property; showDesc?: boolean }) {
@@ -6,7 +7,13 @@ export default function PropertyCard({ property: p, showDesc = true }: { propert
     <article className="blueprint property-card">
       <Corners />
       <div className="duotone property-photo">
-        <Photo src={p.image} alt={p.title} placeholder="Property photo" sizes="(max-width: 700px) 100vw, 400px" />
+        <Photo
+          src={p.image}
+          alt={p.title}
+          placeholder="Property photo"
+          sizes="(max-width: 700px) 100vw, 400px"
+          fallback={<LocationMap view={p.city.toLowerCase() as MapView} pins={[pinOf(p)]} title={`Map of ${p.city} showing ${p.title}`} compact />}
+        />
       </div>
       <div className="property-body">
         <div className="property-meta">

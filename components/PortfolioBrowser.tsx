@@ -1,14 +1,14 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { locations, portfolio, type Location } from "@/data/portfolio";
-import PropertyCard from "./PropertyCard";
 
 type Sort = "newest" | "price-asc" | "price-desc";
 const filters = ["All", ...locations] as const;
 
-export default function PortfolioBrowser() {
+// Cards are rendered on the server (they include the maps) and passed in by slug.
+export default function PortfolioBrowser({ cards }: { cards: Record<string, ReactNode> }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
@@ -53,7 +53,7 @@ export default function PortfolioBrowser() {
         {list.length === 1 ? "1 property" : `${list.length} properties`}
       </p>
       <div className="card-grid">
-        {list.map((p) => <PropertyCard key={p.slug} property={p} />)}
+        {list.map((p) => <div key={p.slug} style={{ display: "contents" }}>{cards[p.slug]}</div>)}
       </div>
     </>
   );

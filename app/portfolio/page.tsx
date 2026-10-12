@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import PortfolioBrowser from "@/components/PortfolioBrowser";
+import PropertyCard from "@/components/PropertyCard";
+import { portfolio } from "@/data/portfolio";
 
 export const metadata: Metadata = {
   title: "Portfolio",
@@ -16,7 +18,7 @@ export default function PortfolioPage() {
         Every property Mach Investments has acquired, with the key numbers for each.
       </p>
       <Suspense>
-        <PortfolioBrowser />
+        <PortfolioBrowser cards={Object.fromEntries(portfolio.map((p) => [p.slug, <PropertyCard key={p.slug} property={p} />]))} />
       </Suspense>
       <p className="muted" style={{ fontSize: 13, marginTop: 32 }}>
         Current values are internal estimates as of October 2026. Yields are gross, based on current rent.

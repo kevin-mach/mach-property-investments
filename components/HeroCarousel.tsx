@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { slides } from "@/data/content";
-import Photo from "./Photo";
 
 const INTERVAL = 6000;
 const pad = (n: number) => String(n).padStart(2, "0");
 
-export default function HeroCarousel() {
+// `media` holds each slide's photo/map panel, rendered on the server.
+export default function HeroCarousel({ media }: { media: ReactNode[] }) {
   const [cur, setCur] = useState(0);
   const paused = useRef(false);
   const timer = useRef<ReturnType<typeof setInterval>>(undefined);
@@ -70,7 +70,7 @@ export default function HeroCarousel() {
               </div>
             </div>
             <div className="duotone slide-photo">
-              <Photo src={s.image} alt={s.title} placeholder={s.placeholder} sizes="(max-width: 700px) 100vw, 640px" />
+              {media[i]}
             </div>
           </div>
         );

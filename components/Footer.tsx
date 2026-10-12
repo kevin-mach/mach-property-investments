@@ -21,6 +21,10 @@ export default function Footer() {
       <div className="footer-bottom">
         <span>© 2026 Mach Property Investments Ltd. Registered in England and Wales.</span>
         <span>Property values can fall as well as rise. Seek independent advice before investing.</span>
+        <span style={{ flexBasis: "100%", fontSize: 12 }}>
+          Maps contain Ordnance Survey data © Crown copyright and database right 2014. Boundaries:{" "}
+          <a href="https://github.com/martinjc/UK-GeoJSON" style={{ color: "inherit" }}>UK-GeoJSON</a> (CC BY 4.0).
+        </span>
       </div>
     </footer>
   );

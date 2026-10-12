@@ -18,7 +18,12 @@ npm run build   # production build
 | Hero slides, completed deals, team, FAQ, form options | `data/content.ts` |
 | Phone, email, hours, headline figures, nav | `data/site.ts` |
 
-Photos without an `image` show a labelled placeholder. All photos get the greyscale treatment automatically.
+Until photos are supplied, property cards and hero slides show a map: the property's area with a pin at its `lat` / `lng`
+(slide 1 shows the UK with London, Essex and Manchester highlighted). Adding an `image` replaces the map with the photo.
+All photos get the greyscale treatment automatically.
+
+The base maps in `public/maps/` are generated from ONS/OS boundary data by `npm run maps` (`scripts/build-maps.mjs`);
+you only need to re-run it to change the map styling or add a new region. The data licence requires the credit line in the footer.
 
 ## Contact form
 

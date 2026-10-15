@@ -28,7 +28,6 @@ const COLORS = {
   coast: "#b7b7ba",
   border: "#cacacd",
   region: "#d2d2d5",
-  regionSolid: "#1d1f20",
   regionInternal: "#98989b",
   regionEdge: "#1d1f20",
 };
@@ -113,14 +112,18 @@ function build(name, { fit, padding, regions, solid, detail = 3 }) {
   if (!solid) layers.push(`<path d="${path(mesh(gb, all, (a, b) => a !== b))}" ${stroke(COLORS.border, 0.75)}/>`);
   layers.push(`<path d="${coast}" ${stroke(COLORS.coast, 0.75)}/>`);
 
+  // Clickable area shapes, drawn inline by LocationMap so they can react to hover.
+  // Coarser than the base map: the overlay is translucent, so small differences don't show.
+  const areaGb = solid ? gb : simplifyFor(gbPre, scale, 12);
+  const areaPath = solid ? path : planarPath(projection, 12);
+  const areas = {};
   const centroids = {};
   for (const r of regions) {
+    areas[r] = feature(areaGb, { type: "GeometryCollection", geometries: regionGeoms(areaGb, r) }).features.map((f) => areaPath(f.geometry)).join("");
     const geoms = regionGeoms(gb, r);
     const set = new Set(geoms);
     const shape = fill(gb, geoms);
-    if (solid) {
-      layers.push(`<path d="${shape}" fill="${COLORS.regionSolid}"/>`);
-    } else {
+    if (!solid) {
       const edge = mesh(gb, all, (a, b) => (a === b ? set.has(a) : set.has(a) !== set.has(b)));
       layers.push(`<path d="${shape}" fill="${COLORS.region}"/>`);
       layers.push(`<path d="${path(mesh(gb, all, (a, b) => a !== b && set.has(a) && set.has(b)))}" ${stroke(COLORS.regionInternal, 0.75, ' stroke-dasharray="3 3"')}/>`);
@@ -137,6 +140,7 @@ function build(name, { fit, padding, regions, solid, detail = 3 }) {
   return {
     projection: { scale: +scale.toFixed(3), translate: projection.translate().map((v) => +v.toFixed(3)), rotate: ROTATE },
     centroids,
+    areas,
   };
 }
 

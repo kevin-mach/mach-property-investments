@@ -145,6 +145,20 @@ figure { margin: 0; }
 .map-label-lg { font-size: 30px; }
 .map-small { font-family: var(--font-body); font-size: 15px; font-weight: 600; letter-spacing: 0.08em; fill: #1d1f20; }
 .map-muted { fill: var(--color-neutral-700); font-weight: 400; }
+/* Clickable areas: hover/focus highlights the area (and its label on the UK map). */
+.map-area { cursor: pointer; }
+.map-area:focus { outline: none; }
+.map-area-shape {
+  fill: #1d1f20; fill-opacity: 0; stroke: transparent; stroke-width: 2; vector-effect: non-scaling-stroke;
+  transition: fill-opacity 200ms ease, fill 200ms ease;
+}
+.map-area:hover .map-area-shape, .map-area:focus-visible .map-area-shape { fill-opacity: 0.18; }
+.map-area:focus-visible .map-area-shape { stroke: #1d1f20; }
+.map-area-solid .map-area-shape { fill: #6f6f72; fill-opacity: 1; }
+.map-area-solid:hover .map-area-shape, .map-area-solid:focus-visible .map-area-shape { fill: #1d1f20; fill-opacity: 1; }
+.map-area-solid .map-label { transition: fill 200ms ease; fill: #424244; }
+.map-area-solid:hover .map-label, .map-area-solid:focus-visible .map-label { fill: #1d1f20; text-decoration: underline; }
+.map-overlay { pointer-events: none; }
 /* The map is already greyscale, so skip the photo duotone overlay. */
 .duotone:has(> .location-map)::after { content: none; }
 

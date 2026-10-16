@@ -159,8 +159,9 @@ figure { margin: 0; }
 .map-area-solid .map-label { transition: fill 200ms ease; fill: #424244; }
 .map-area-solid:hover .map-label, .map-area-solid:focus-visible .map-label { fill: #1d1f20; text-decoration: underline; }
 .map-overlay { pointer-events: none; }
-/* The map is already greyscale, so skip the photo duotone overlay. */
-.duotone:has(> .location-map)::after { content: none; }
+/* Photos are shown in full colour (client's choice), and maps are already greyscale,
+   so the duotone overlay only ever applies to empty placeholders. */
+.duotone:has(img)::after, .duotone:has(> .location-map)::after { content: none; }
 
 /* — forms — */
 .field > label { display: block; font-size: 12px; margin-bottom: 5px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }

@@ -79,6 +79,18 @@ export const portfolio: Property[] = [
     desc: "2-bed flat in a modern block in Grays, with an en-suite shower room and a family bathroom.",
     lat: 51.4766,
     lng: 0.299,
+    images: photos("the-chase-grays", [
+      ["exterior.jpg", "Six-storey brick apartment block with parking"],
+      ["living-room.jpg", "Living room with doors to the balcony"],
+      ["view.jpg", "View from the balcony"],
+      ["kitchen.jpg", "Kitchen"],
+      ["kitchen-2.jpg", "Kitchen"],
+      ["bedroom-1.jpg", "Bedroom with balcony door"],
+      ["bedroom-2.jpg", "Second bedroom"],
+      ["bathroom.jpg", "Bathroom"],
+      ["en-suite.jpg", "En-suite shower room"],
+      ["en-suite-2.jpg", "En-suite shower room"],
+    ]),
   },
 ];
 

@@ -68,11 +68,6 @@ export const portfolio: Property[] = [
       ["bedroom-wardrobe.jpg", "Bedroom with wardrobe"],
       ["bathroom.jpg", "Bathroom"],
       ["hallway-storage.jpg", "Hallway storage with washing machine"],
-      ["kitchen-tenanted.jpg", "Kitchen and living area"],
-      ["living-room-tenanted.jpg", "Living room"],
-      ["bedroom-tenanted.jpg", "Bedroom"],
-      ["bedroom-tenanted-2.jpg", "Bedroom"],
-      ["bathroom-tenanted.jpg", "Bathroom"],
     ]),
   },
   {

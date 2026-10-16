@@ -15,8 +15,8 @@ export const navLinks = [
 ];
 
 export const figures = [
-  { value: "£42m", label: "Property sourced" },
-  { value: "310", label: "Homes managed" },
+  { value: "£1.5m", label: "Property sourced" },
+  { value: "4", label: "Homes managed" },
   { value: "98%", label: "Average occupancy" },
-  { value: "12 yrs", label: "Investing in the UK" },
+  { value: "5 yrs", label: "Investing in the UK" },
 ];

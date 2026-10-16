@@ -79,6 +79,8 @@ export const portfolio: Property[] = [
     desc: "Flat in a purpose-built block off Fleming Road, Chafford Hundred.",
     lat: 51.4877,
     lng: 0.2884,
+    // Photo © Ali&Co Property Services; watermark kept as their attribution.
+    images: photos("gower-place", [["exterior.jpg", "Three-storey block of flats on Fleming Road"]]),
   },
   {
     slug: "the-chase-grays",

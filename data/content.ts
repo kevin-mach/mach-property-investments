@@ -27,9 +27,10 @@ export const completed = [
 ];
 
 export const team: { name: string; role: string; image?: string }[] = [
-  { name: "Founder name", role: "Founder & Managing Director" },
-  { name: "Team member", role: "Head of Acquisitions" },
-  { name: "Team member", role: "Property Manager" },
+  { name: "Michael Mach", role: "Founder & Managing Director" },
+  { name: "Kevin Mach", role: "Co-founder & Chief Digital Growth Officer" },
+  { name: "Carmen Mach", role: "Head of Acquisitions" },
+  { name: "Quinny Mach", role: "Property Manager" },
 ];
 
 export const faqGroups = [

@@ -358,7 +358,7 @@ textarea.input { min-height: 90px; resize: vertical; }
 .track-figures > div { padding: 24px 24px 24px 0; }
 .track-figures .figure-value { font-size: 44px; }
 .track-figures .figure-label { margin-top: 8px; }
-.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr)); gap: clamp(20px, 2.5vw, 32px); }
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(200px, 100%), 1fr)); gap: clamp(20px, 2.5vw, 32px); }
 .team-name { font-family: var(--font-heading); font-weight: 600; font-size: 22px; text-transform: uppercase; }
 .team-role { font-size: 15px; color: var(--color-neutral-700); margin-top: 2px; }
 

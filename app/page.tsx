@@ -4,15 +4,17 @@ import PropertyCard from "@/components/PropertyCard";
 import { CtaBand } from "@/components/Footer";
 import LocationMap, { type MapView } from "@/components/LocationMap";
 import Photo from "@/components/Photo";
-import { slides } from "@/data/content";
+import { slides as allSlides } from "@/data/content";
 import { pinOf, portfolio } from "@/data/portfolio";
 import { figures } from "@/data/site";
 
 export default function Home() {
+  const slides = allSlides.filter((s) => !s.location || portfolio.some((p) => p.city === s.location));
   return (
     <>
       <section className="hero">
         <HeroCarousel
+          slides={slides}
           media={slides.map((s) => (
             <Photo
               key={s.title}

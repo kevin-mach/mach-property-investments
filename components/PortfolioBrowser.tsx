@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState, type ReactNode } from "react";
 import { locations, portfolio, type Location } from "@/data/portfolio";
@@ -26,8 +27,11 @@ export default function PortfolioBrowser({ cards }: { cards: Record<string, Reac
   };
 
   let list = portfolio.filter((p) => filter === "All" || p.city === filter);
-  if (sort === "price-asc") list = [...list].sort((a, b) => a.price - b.price);
-  if (sort === "price-desc") list = [...list].sort((a, b) => b.price - a.price);
+  // Properties without a price yet go last either way.
+  const byPrice = (dir: 1 | -1) => (a: (typeof list)[number], b: (typeof list)[number]) =>
+    a.price == null ? 1 : b.price == null ? -1 : dir * (a.price - b.price);
+  if (sort === "price-asc") list = [...list].sort(byPrice(1));
+  if (sort === "price-desc") list = [...list].sort(byPrice(-1));
 
   return (
     <>
@@ -52,9 +56,16 @@ export default function PortfolioBrowser({ cards }: { cards: Record<string, Reac
       <p className="muted" style={{ margin: "0 0 20px", fontSize: 14 }} aria-live="polite">
         {list.length === 1 ? "1 property" : `${list.length} properties`}
       </p>
-      <div className="card-grid">
-        {list.map((p) => <div key={p.slug} style={{ display: "contents" }}>{cards[p.slug]}</div>)}
-      </div>
+      {list.length > 0 ? (
+        <div className="card-grid">
+          {list.map((p) => <div key={p.slug} style={{ display: "contents" }}>{cards[p.slug]}</div>)}
+        </div>
+      ) : (
+        <div className="blueprint portfolio-empty">
+          <p className="lead">No properties in {filter} yet.</p>
+          <p className="muted">Want to hear when we buy here? <Link href="/contact">Get in touch</Link>.</p>
+        </div>
+      )}
     </>
   );
 }

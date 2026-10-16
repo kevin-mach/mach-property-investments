@@ -25,6 +25,26 @@ function projectionFor(view: MapView) {
     .translate([translate[0], translate[1]]);
 }
 
+// Merge pins closer than `minDist` (viewBox px) into one, labelled with their distinct labels and a count.
+function clusterPins(points: { x: number; y: number; label: string }[], minDist: number) {
+  const groups: { x: number; y: number; labels: string[] }[] = [];
+  for (const p of points) {
+    const g = groups.find((g) => Math.hypot(g.x - p.x, g.y - p.y) < minDist);
+    if (!g) groups.push({ x: p.x, y: p.y, labels: [p.label] });
+    else {
+      const n = g.labels.length;
+      g.x = (g.x * n + p.x) / (n + 1);
+      g.y = (g.y * n + p.y) / (n + 1);
+      g.labels.push(p.label);
+    }
+  }
+  return groups.map((g) => ({
+    x: g.x,
+    y: g.y,
+    label: [...new Set(g.labels)].join(" · ") + (g.labels.length > 1 ? ` (${g.labels.length})` : ""),
+  }));
+}
+
 const fmtCoord = (v: number, pos: string, neg: string) => `${Math.abs(v).toFixed(2)}° ${v >= 0 ? pos : neg}`;
 
 // Placeholder graphic for a location: base map (static SVG in /public/maps) with pins and labels drawn on top.
@@ -39,6 +59,11 @@ export default function LocationMap({ view, pins = [], title, compact = false }:
   const centroids = mapViews[view].centroids as Record<string, readonly [number, number]>;
   const [cLng, cLat] = view === "uk" ? [-2, 54] : centroids[view];
   const areas = Object.entries(mapViews[view].areas) as [Area, string][];
+  const points = pins.flatMap((p) => {
+    const pt = projection([p.lng, p.lat]);
+    return pt ? [{ x: pt[0], y: pt[1], label: p.label }] : [];
+  });
+  const markers = clusterPins(points, 28 * k);
 
   return (
     <div className="location-map">
@@ -77,17 +102,14 @@ export default function LocationMap({ view, pins = [], title, compact = false }:
         })}
 
         <g className="map-overlay" aria-hidden="true">
-          {pins.map((p) => {
-            const pt = projection([p.lng, p.lat]);
-            if (!pt) return null;
-            const [x, y] = pt;
+          {markers.map(({ x, y, label }) => {
             return (
-              <g key={p.label}>
+              <g key={label}>
                 <line x1={x} y1={y} x2={x + 22 * k} y2={y - 22 * k} className="map-leader" />
                 <rect x={x - 6 * k} y={y - 6 * k} width={12 * k} height={12 * k} className="map-pin" />
                 <rect x={x - 2 * k} y={y - 2 * k} width={4 * k} height={4 * k} fill="#fff" />
                 <text x={x + 26 * k} y={y - 22 * k} dy="0.35em" className="map-label" style={compact ? { fontSize: 40, strokeWidth: 8 } : undefined}>
-                  {p.label}
+                  {label}
                 </text>
               </g>
             );

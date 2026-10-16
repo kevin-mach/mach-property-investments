@@ -10,11 +10,12 @@ export type Slide = {
   placeholder: string;
 };
 
+// Location slides are only shown while the portfolio has properties there (see app/page.tsx).
 export const slides: Slide[] = [
   { eyebrow: "Mach Property Investments", title: "Property investment, made clear.", body: "We source, refurbish and manage UK residential property for private investors, with the full numbers on every deal.", cta: "View portfolio", placeholder: "Property photograph" },
-  { eyebrow: "Portfolio · Essex", title: "Homes across Essex", body: "From Westcliff-on-Sea to Chelmsford, see purchase price, current value and yield for every Essex property.", cta: "View Essex properties", location: "Essex", placeholder: "Essex property photograph" },
+  { eyebrow: "Portfolio · Essex", title: "Homes across Essex", body: "Flats in Chafford Hundred and Grays, Thurrock, with the details of each one.", cta: "View Essex properties", location: "Essex", placeholder: "Essex property photograph" },
   { eyebrow: "Portfolio · London", title: "Investing in London", body: "Apartments and period houses in east and south London, with the numbers behind each one.", cta: "View London properties", location: "London", placeholder: "London property photograph" },
-  { eyebrow: "Portfolio · Manchester", title: "Growing in Manchester", body: "HMOs and city-centre apartments in one of the UK's strongest rental markets.", cta: "View Manchester properties", location: "Manchester", placeholder: "Manchester property photograph" },
+  { eyebrow: "Portfolio · Manchester", title: "Growing in Manchester", body: "An apartment in central Salford, a short walk from Manchester city centre.", cta: "View Manchester properties", location: "Manchester", placeholder: "Manchester property photograph" },
 ];
 
 export const completed = [

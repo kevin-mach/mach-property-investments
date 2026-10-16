@@ -2,13 +2,13 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
-import { slides } from "@/data/content";
+import type { Slide } from "@/data/content";
 
 const INTERVAL = 6000;
 const pad = (n: number) => String(n).padStart(2, "0");
 
 // `media` holds each slide's photo/map panel, rendered on the server.
-export default function HeroCarousel({ media }: { media: ReactNode[] }) {
+export default function HeroCarousel({ slides, media }: { slides: Slide[]; media: ReactNode[] }) {
   const [cur, setCur] = useState(0);
   const paused = useRef(false);
   const timer = useRef<ReturnType<typeof setInterval>>(undefined);
